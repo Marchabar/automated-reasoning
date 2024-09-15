@@ -1,6 +1,6 @@
 from z3 import *
 
-solver = Optimize()
+solver = Solver()
 
 num_trucks = 6
 
@@ -70,14 +70,13 @@ solver.add(Sum(crottles_t) == crottles)
 # Maximize the number of dupples
 dupple_num = Int("dupple_num")
 solver.add(dupple_num == Sum(dupples_t))
-solver.maximize(dupple_num)
 
 
 if solver.check() == sat:
-    model = objective.model()
+    model = solver.model()
     print(
         "Maximum number of dupple pallets",
-        model[dupple_num].as_long(),
+        model.eval(dupple_num).as_long(),
     )
     for i in range(num_trucks):
         print(f"Truck {i + 1}:")
