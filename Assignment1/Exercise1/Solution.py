@@ -1,6 +1,6 @@
 from z3 import *
 
-solver = Solver()
+solver = Optimize()
 
 num_trucks = 6
 
@@ -50,6 +50,14 @@ for t in range(num_trucks):
         If(skipples_t[t] > 0, skipple_trucks[t] == True, skipple_trucks[t] == False)
     )
 
+# Constraint: The quantity for each pallet has to be positive
+for i in range(num_trucks):
+    solver.add(nuzzles_t[i] >= 0)
+    solver.add(prittles_t[i] >= 0)
+    solver.add(skipples_t[i] >= 0)
+    solver.add(crottles_t[i] >= 0)
+    solver.add(dupples_t[i] >= 0)
+
 # Constraint: Prittles must be distributed over at least five trucks
 prittle_truck_count = Sum([If(prittles_t[t] > 0, 1, 0) for t in range(num_trucks)])
 solver.add(prittle_truck_count >= 5)
@@ -70,6 +78,7 @@ solver.add(Sum(crottles_t) == crottles)
 # Maximize the number of dupples
 dupple_num = Int("dupple_num")
 solver.add(dupple_num == Sum(dupples_t))
+solver.maximize(dupple_num)
 
 
 if solver.check() == sat:
