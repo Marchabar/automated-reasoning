@@ -64,16 +64,15 @@ solver.add(prittle_truck_count >= 5)
 
 solver.add(Sum([If(skipple_trucks[t], 1, 0) for t in range(num_trucks)]) == 2)
 
-# Constraint: Crottles need at least 2 dupples per truck
-# for i in range(num_trucks):
-#    solver.add(Implies(crottles_t[i] > 0, dupple_t[i] >= 2))
-
-
 # We have to distribute all the pallets
 solver.add(Sum(nuzzles_t) == nuzzles)
 solver.add(Sum(prittles_t) == prittles)
 solver.add(Sum(skipples_t) == skipples)
 solver.add(Sum(crottles_t) == crottles)
+
+# Constraint: if there are crottles in a truck, then in that truck there are at least 2 dupples
+for i in range(num_trucks):
+    solver.add(Implies(crottles_t[i] > 0, dupples_t[i] >= 2))
 
 # Maximize the number of dupples
 dupple_num = Int("dupple_num")
@@ -84,15 +83,18 @@ solver.maximize(dupple_num)
 if solver.check() == sat:
     model = solver.model()
     print(
+        f"2. Do the same, with the extra information that crottles get too cold if there are less than two dupples in the same truck."
+    )
+    print(
         "Maximum number of dupple pallets",
         model.eval(dupple_num).as_long(),
     )
     for i in range(num_trucks):
         print(f"Truck {i + 1}:")
         print(f"  Nuzzles: {model[nuzzles_t[i]]}")
+        print(f"  Prittles: {model[prittles_t[i]]}")
         print(f"  Skipples: {model[skipples_t[i]]}")
         print(f"  Crottles: {model[crottles_t[i]]}")
-        print(f"  Prittles: {model[prittles_t[i]]}")
         print(f"  Dupples: {model[dupples_t[i]]}")
 else:
     print("No solution found")
