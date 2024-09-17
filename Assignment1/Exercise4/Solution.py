@@ -47,11 +47,25 @@ for n in range(1, 11):
         # Show path to crash state
         print('Path to crash state:')
         print(f'Initial values: a = {a_init}, b = {b_init}')
+        support_a = a_init
+        support_b = b_init
+
         for i in range(1, 11):
-            a_i = m[Int(f'a_{i}')]
-            b_i = m[Int(f'b_{i}')]
-            print(f'Step {i}: a = {a_i}, b = {b_i}')
+            a_i_expr = Int(f'a_{i}')
+            b_i_expr = Int(f'b_{i}')
+            
+            a_i_val = s.model().evaluate(a_i_expr).as_long()
+            b_i_val = s.model().evaluate(b_i_expr).as_long()
+            
+            print(f'Step {i}: a = {a_i_val}, b = {b_i_val}')
         
+            if (a_i_val == support_a + 2 * support_b) and (b_i_val == support_b + 3):
+                print('branch1')
+            if (a_i_val == support_a + i) and (b_i_val == support_b - a_i_val):
+                print('branch2')
+            
+            support_a = a_i_val
+            support_b = b_i_val        
         print('--------------------------------------------------------')
     else:
         print(f"Program safe for n = {n}")
