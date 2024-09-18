@@ -87,7 +87,7 @@ for i in range(num_posters):
     horizontal_constraint = Or(y[i] + rotated_height <= line_y, y[i] >= line_y)
 
     # Only apply either the vertical or horizontal constraint depending on its position
-    solver.add(If(is_horizontal, vertical_constraint, horizontal_constraint))
+    solver.add(If(is_horizontal, horizontal_constraint, vertical_constraint))
 
 
 if solver.check() == sat:
