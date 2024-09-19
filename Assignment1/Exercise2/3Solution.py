@@ -96,3 +96,4 @@ if solver.check() == sat:
     print("Vertical line at x = ", model[line_x])
 else:
     print("No solution found")
+    
