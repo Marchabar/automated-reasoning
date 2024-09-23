@@ -50,6 +50,8 @@ for t in range(num_trucks):
         If(skipples_t[t] > 0, skipple_trucks[t] == True, skipple_trucks[t] == False)
     )
 
+solver.add(Sum([If(skipple_trucks[t], 1, 0) for t in range(num_trucks)]) <= 2)
+
 # Constraint: The quantity for each pallet has to be positive
 for i in range(num_trucks):
     solver.add(nuzzles_t[i] >= 0)
@@ -62,7 +64,6 @@ for i in range(num_trucks):
 prittle_truck_count = Sum([If(prittles_t[t] > 0, 1, 0) for t in range(num_trucks)])
 solver.add(prittle_truck_count >= 5)
 
-solver.add(Sum([If(skipple_trucks[t], 1, 0) for t in range(num_trucks)]) == 2)
 
 # We have to distribute all the pallets
 solver.add(Sum(nuzzles_t) == nuzzles)
