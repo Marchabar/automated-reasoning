@@ -1,9 +1,20 @@
-# automated-reasoning
 
-## Intro for Forth problem
+# Problem Solving with Z3 Solver
 
-Generally, when writing a program, it needs to be executed to eventually arrive at a solution. This means the program reads input values and assigns them to variables. But what if someone wants to check if the program is feasible, determine when it is feasible, and explore all possible paths—not just the reachable ones? This is where symbolic execution comes into play.
+This repository contains solutions to a variety of optimization and logic-based problems using the [Z3 solver](https://github.com/Z3Prover/z3), a high-performance theorem prover developed by Microsoft Research. The problems range from simple constraints to more complex scenarios, showcasing the power and flexibility of Z3 in solving them.
 
-Symbolic execution was originally proposed in the 1970s [CITATION HERE]. However, it relied on automated theorem-proving and did not become widely used immediately. Today, it is employed in a wide variety of modalities, including program analysis, testing, and reverse engineering.
+## Installation
 
-The following problem is strongly related to this matter since we need to explore all possible program paths and then use a solver to determine for which values of n the crash condition can or cannot be satisfied.  
+To get started, ensure you have Python installed. Then, install the Z3 solver for Python by running the following command:
+
+```bash
+pip install z3-solver
+```
+
+For visualizing the **Poster Printing Problem**, we use the `plotly` library. You can install it by running:
+
+```bash
+pip install plotly
+```
+
+With these installations, you’ll be ready to explore the solutions provided and run the visualizations.
