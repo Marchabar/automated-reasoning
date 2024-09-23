@@ -20,7 +20,7 @@ pip install plotly
 With these installations, you’ll be ready to explore the solutions provided and run the visualizations.
 
 
-## Collaborators
+## Contributors
 <!-- collaborators -->
 <a href="https://github.com/loweege"><img src="https://github.com/user-attachments/assets/ae902e5c-80e5-47ac-b86d-b575ae478bbd" width="60px"/></a>
 <a href="https://github.com/Marchabar"><img src="https://github.com/user-attachments/assets/7df50b32-373e-4f71-a8c9-9e6ebb17daf9" width="60px"/></a>
