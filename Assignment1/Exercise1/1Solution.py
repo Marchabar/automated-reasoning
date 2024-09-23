@@ -43,7 +43,7 @@ for i in range(num_trucks):
         <= max_pallets_per_truck
     )
 
-# Constraint: Exactly two trucks can carry skipples
+# Constraint: At most two trucks can carry skipples
 skipple_trucks = [Bool(f"skipple_truck_{t}") for t in range(num_trucks)]
 for t in range(num_trucks):
     solver.add(
