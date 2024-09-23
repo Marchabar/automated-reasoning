@@ -72,7 +72,7 @@ for i in range(num_posters):
         )
 
 
-# Constraint: the line can be covered by any poster (assume line is either vertical or horizontal)
+# Constraint: the lines can't be covered by any poster
 for i in range(num_posters):
     width_i, height_i = poster_sizes[i]
 
