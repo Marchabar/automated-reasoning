@@ -1,19 +1,28 @@
 from z3 import *
 
-# Define truck's location as an integer (0 for S, 1 for A, 2 for B, 3 for C)
-truck_location = Int('truck_location')
+'''
+THINGS WE ASSUME:
+1) the truck can either leave food supply to a village or not
+2) if the truck leave food supply it can either leave only one package or its full load
+3) When the truck goes in S it fully loads
+'''
 
-# Declare the capacities of each village
-capacity_A = Int('capacity_A')
-capacity_B = Int('capacity_B')
-capacity_C = Int('capacity_C')
-capacity_S = Int('capacity_S')  # S is self-supporting, but we track it
+# Number of steps
+N = 5
 
-# Declare the truck's capacity
-truck_capacity = Int('truck_capacity')
+# Truck location variables for each step
+T_a = [Bool(f'T_a_{i}') for i in range(N)]  # Truck at village A at step i
+T_b = [Bool(f'T_b_{i}') for i in range(N)]  # Truck at village B at step i
+T_c = [Bool(f'T_c_{i}') for i in range(N)]  # Truck at village C at step i
+T_s = [Bool(f'T_s_{i}') for i in range(N)]  # Truck at village S at step i
 
-# Step counter for tracking the number of moves
-steps = Int('steps')
+# Capacity of the villages for each step
+capacity_A = [Int(f'capacity_A_{i}') for i in range(N)]
+capacity_B = [Int(f'capacity_B_{i}') for i in range(N)]
+capacity_C = [Int(f'capacity_C_{i}') for i in range(N)]
+
+# Truck's capacity for each step
+truck_capacity = [Int(f'truck_capacity_{i}') for i in range(N)]
 
 # Solver
 s = Solver()
@@ -24,15 +33,11 @@ max_capacity_B = 120
 max_capacity_C = 90
 max_truck_capacity = 130
 
-# Initial conditions
-s.add(capacity_A == 60)
-s.add(capacity_B == 60)
-s.add(capacity_C == 60)
-s.add(truck_capacity == 130)
-s.add(steps == 0)
-
-# Ensure that the truck can only be in one of the four villages
-s.add(Or(truck_location == 0, truck_location == 1, truck_location == 2, truck_location == 3))  # 0=S, 1=A, 2=B, 3=C
+# Initial conditions at step 0
+s.add(capacity_A[0] == 60)
+s.add(capacity_B[0] == 60)
+s.add(capacity_C[0] == 60)
+s.add(truck_capacity[0] == 130)
 
 # Declare the time costs for each path
 time_SA = 15
@@ -46,306 +51,127 @@ time_CB = 9
 time_BC = 13
 time_BA = 17
 
-# Transitions
-# If truck moves from S (0) to A (1)
-s.add(Implies(truck_location == 0, And(
-    capacity_A == max_capacity_A,
-    capacity_B == capacity_B - time_SA,
-    capacity_C == capacity_C - time_SA,
-    capacity_S == capacity_S + time_SA,
-    truck_capacity == truck_capacity - (max_capacity_A - capacity_A),
-    truck_location == 1)))
+# Declare a variable k for each transition
+k_SA = [Int(f'k_SA_{i}') for i in range(N)]
+k_SC = [Int(f'k_SC_{i}') for i in range(N)]
+k_AS = [Int(f'k_AS_{i}') for i in range(N)]
+k_AC = [Int(f'k_AC_{i}') for i in range(N)]
+k_AB = [Int(f'k_AB_{i}') for i in range(N)]
+k_CS = [Int(f'k_CS_{i}') for i in range(N)]
+k_CA = [Int(f'k_CA_{i}') for i in range(N)]
+k_CB = [Int(f'k_CB_{i}') for i in range(N)]
+k_BC = [Int(f'k_BC_{i}') for i in range(N)]
+k_BA = [Int(f'k_BA_{i}') for i in range(N)]
 
-# If truck moves from S (0) to C (3)
-s.add(Implies(truck_location == 0, And(
-    capacity_A == capacity_A - time_SC,
-    capacity_B == capacity_B - time_SC,
-    capacity_C == max_capacity_C,
-    capacity_S == capacity_S + time_SC,    
-    truck_capacity == truck_capacity - (max_capacity_C - capacity_C),
-    truck_location == 3)))
+# Add constraints for all k_ variables
+for k in (k_SA, k_SC, k_AS, k_AC, k_AB, k_CS, k_CA, k_CB, k_BC, k_BA):
+    for i in range(N):
+        s.add(And(k[i] >= 0, k[i] <= max_truck_capacity))
 
-# CHESK
-# If truck moves from A (1) to S (0) (refill only)
-s.add(Implies(truck_location == 1, And(
-    capacity_A == capacity_A - time_AS,
-    capacity_B == capacity_B - time_AS,
-    capacity_C == capacity_C - time_AS,
-    capacity_S == capacity_S + time_AS, 
-    truck_capacity == truck_capacity + (max_truck_capacity - truck_capacity),
-    capacity_S == capacity_S - (max_truck_capacity - truck_capacity),
-    truck_location == 0)))
+# Truck starts at village S
+s.add(T_s[0] == True)
+s.add(T_a[0] == False)
+s.add(T_b[0] == False)
+s.add(T_c[0] == False)
 
-# If truck moves from A (1) to C (3)
-s.add(Implies(truck_location == 1, And(
-    capacity_A == capacity_A - time_AC,
-    capacity_B == capacity_B - time_AC,
-    capacity_C == max_capacity_C,
-    capacity_S == capacity_S + time_AC,    
-    truck_capacity == truck_capacity - (max_capacity_C - capacity_C),
-    truck_location == 3)))
+for i in range(N):
+    s.add(capacity_A[i] >= 0)
+    s.add(capacity_B[i] >= 0)
+    s.add(capacity_C[i] >= 0)
+    s.add(truck_capacity[i] >= 0)
+    s.add(capacity_A[i] <= 90)
+    s.add(capacity_B[i] <= 120)
+    s.add(capacity_C[i] <= 90)
+    s.add(truck_capacity[i] <= 130)
 
-# If truck moves from A (1) to B (2)
-s.add(Implies(truck_location == 1, And(
-    capacity_A == capacity_A - time_AB,
-    capacity_B == max_capacity_B,
-    capacity_C == capacity_C - time_AB,
-    capacity_S == capacity_S + time_AB,
-    truck_capacity == truck_capacity - (max_capacity_B - capacity_B),
-    truck_location == 2)))
+# Constraints for each step
+for i in range(N-1):  # Loop over each step
+    # Ensure truck is in exactly one village at each step
+    s.add(Or(T_a[i], T_b[i], T_c[i], T_s[i]))  # Truck must be somewhere
 
-# If truck moves from C (3) to A (1)
-s.add(Implies(truck_location == 3, And(
-    capacity_A == max_capacity_A,
-    capacity_B == capacity_B - time_CA,
-    capacity_C == capacity_C - time_CA,
-    capacity_S == capacity_S + time_CA,
-    truck_capacity == truck_capacity - (max_capacity_A - capacity_A),
-    truck_location == 1)))
+    s.add(And(
+        Implies(T_a[i], And(Not(T_b[i]), Not(T_c[i]), Not(T_s[i]))),  # If T_a is true, others are false
+        Implies(T_b[i], And(Not(T_a[i]), Not(T_c[i]), Not(T_s[i]))),  # If T_b is true, others are false
+        Implies(T_c[i], And(Not(T_a[i]), Not(T_b[i]), Not(T_s[i]))),  # If T_c is true, others are false
+        Implies(T_s[i], And(Not(T_a[i]), Not(T_b[i]), Not(T_c[i])))   # If T_s is true, others are false
+    ))
 
-# If truck moves from C (3) to B (2)
-s.add(Implies(truck_location == 3, And(
-    capacity_A == capacity_A - time_CB,
-    capacity_B == max_capacity_B,
-    capacity_C == capacity_C - time_CB,
-    capacity_S == capacity_S + time_CB,
-    truck_capacity == truck_capacity - (max_capacity_B - capacity_B),
-    truck_location == 2)))
+    s.add(Implies(T_s[i], Or(
+        And(T_a[i+1], 
+            capacity_B[i+1] == capacity_B[i] - time_SA, 
+            Or(And(capacity_A[i+1] == capacity_A[i] - time_SA + k_SA[i], truck_capacity[i+1] == truck_capacity[i] - k_SA[i])),
+            capacity_C[i+1] == capacity_C[i] - time_SA),
+        And(T_c[i+1], 
+            capacity_B[i+1] == capacity_B[i] - time_SC, 
+            capacity_A[i+1] == capacity_A[i] - time_SC, 
+            Or(And(capacity_C[i+1] == capacity_C[i] - time_SC + k_SC[i], truck_capacity[i+1] == truck_capacity[i] - k_SC[i])),
+            ))))
+    
+    s.add(Implies(T_a[i], Or(
+        And(T_b[i+1], 
+            Or(And(capacity_B[i+1] == capacity_B[i] - time_AB + k_AB[i], truck_capacity[i+1] == truck_capacity[i] - k_AB[i])),
+            capacity_A[i+1] == capacity_A[i] - time_AB, 
+            capacity_C[i+1] == capacity_C[i] - time_AB),
+        And(T_s[i+1], 
+            capacity_B[i+1] == capacity_B[i] - time_AS, 
+            capacity_A[i+1] == capacity_A[i] - time_AS, 
+            capacity_C[i+1] == capacity_C[i] - time_AS),
+        And(T_c[i+1], 
+            capacity_B[i+1] == capacity_B[i] - time_AC, 
+            capacity_A[i+1] == capacity_A[i] - time_AC, 
+            Or(And(capacity_C[i+1] == capacity_C[i] - time_AC + k_AC[i], truck_capacity[i+1] == truck_capacity[i] - k_AC[i])),
+            ))))
 
-# If truck moves from B (2) to C (3)
-s.add(Implies(truck_location == 2, And(
-    capacity_A == capacity_A - time_BC,
-    capacity_B == capacity_B - time_BC,
-    capacity_C == max_capacity_C,
-    capacity_S == capacity_S + time_BC,
-    truck_capacity == truck_capacity - (max_capacity_C - capacity_C),
-    truck_location == 3)))
+    s.add(Implies(T_b[i], Or(
+        And(T_c[i+1], 
+            capacity_B[i+1] == capacity_B[i] - time_BC, 
+            capacity_A[i+1] == capacity_A[i] - time_BC, 
+            Or(And(capacity_C[i+1] == capacity_C[i] - time_BC + k_BC[i], truck_capacity[i+1] == truck_capacity[i] - k_BC[i]))
+            ),
+        And(T_a[i+1], 
+            capacity_B[i+1] == capacity_B[i] - time_BA, 
+            Or(And(capacity_A[i+1] == capacity_A[i] - time_BA + k_BA[i], truck_capacity[i+1] == truck_capacity[i] - k_BA[i])),
+            capacity_C[i+1] == capacity_C[i] - time_BA))))
 
-# If truck moves from B (2) to A (1)
-s.add(Implies(truck_location == 2, And(
-    capacity_A == max_capacity_A,
-    capacity_B == capacity_B - time_BA,
-    capacity_C == capacity_C - time_BA,
-    capacity_S == capacity_S + time_BA,    
-    truck_capacity == truck_capacity - (max_capacity_A - capacity_A),
-    truck_location == 1)))
-
-#CHECK IT
-# If truck moves from C (3) to S (0)
-s.add(Implies(truck_location == 3, And(
-    capacity_A == capacity_A - time_CS,
-    capacity_B == capacity_B - time_CS,
-    capacity_C == capacity_C - time_CS,
-    capacity_S == capacity_S + time_CS, 
-    truck_capacity == truck_capacity + (max_truck_capacity - truck_capacity),
-    capacity_S == capacity_S - (max_truck_capacity - truck_capacity),
-    truck_location == 0)))
-
-
-
+    s.add(Implies(T_c[i], Or(
+        And(T_b[i+1], 
+            Or(And(capacity_B[i+1] == capacity_B[i] - time_CB + k_CB[i], truck_capacity[i+1] == truck_capacity[i] - k_CB[i])),
+            capacity_A[i+1] == capacity_A[i] - time_CB, 
+            capacity_C[i+1] == capacity_C[i] - time_CB),
+        And(T_s[i+1], 
+            capacity_B[i+1] == capacity_B[i] - time_CS, 
+            capacity_A[i+1] == capacity_A[i] - time_CS, 
+            capacity_C[i+1] == capacity_C[i] - time_CS),
+        And(T_a[i+1], 
+            capacity_B[i+1] == capacity_B[i] - time_CA, 
+            Or(And(capacity_A[i+1] == capacity_A[i] - time_CA + k_CA[i], truck_capacity[i+1] == truck_capacity[i] - k_CA[i])), 
+            capacity_C[i+1] == capacity_C[i] - time_CA))))
 
 
-# Condition to check if all villages A, B, and C run out of supplies
-s.add(And(capacity_A <= 0, capacity_B <= 0, capacity_C <= 0))
 
-# Check the satisfiability of the model
+# Check if it's possible to have valid transitions
 if s.check() == sat:
+    print("Satisfiable:")
+    
     model = s.model()
-    print("Solution found:")
-    print(model)
+    
+    # Organize and print the results by steps
+    for i in range(N-1):
+        print(f"Step {i}:")
+        # Check where the truck is at step i
+        if model.evaluate(T_a[i]):
+            print("Truck is at village A")
+        elif model.evaluate(T_b[i]):
+            print("Truck is at village B")
+        elif model.evaluate(T_c[i]):
+            print("Truck is at village C")
+        elif model.evaluate(T_s[i]):
+            print("Truck is at village S")
+        # Print capacities at this step
+        print(f"Capacity A: {model[capacity_A[i]]}")
+        print(f"Capacity B: {model[capacity_B[i]]}")
+        print(f"Capacity C: {model[capacity_C[i]]}")
+        print(f"Truck capacity: {model[truck_capacity[i]]}\n")
 else:
-    print("No solution found")
+    print("Unsatisfiable")
 
-
-
-
-'''
-from z3 import *
-
-# Define truck's location as an integer (0 for S, 1 for A, 2 for B, 3 for C)
-truck_location = Int('truck_location')
-
-# Declare the capacities of each village
-capacity_A = Int('capacity_A')
-capacity_B = Int('capacity_B')
-capacity_C = Int('capacity_C')
-capacity_S = Int('capacity_S')  # S is self-supporting, but we track it
-
-# Declare the truck's capacity
-truck_capacity = Int('truck_capacity')
-
-# Step counter for tracking the number of moves
-steps = Int('steps')
-
-# Solver
-s = Solver()
-
-# Maximum capacities of the villages
-max_capacity_A = 90
-max_capacity_B = 120
-max_capacity_C = 90
-max_truck_capacity = 130
-
-# Initial conditions
-s.add(capacity_A == 60)
-s.add(capacity_B == 60)
-s.add(capacity_C == 60)
-s.add(truck_capacity == 130)
-s.add(steps == 0)
-
-# Ensure that the truck can only be in one of the four villages
-s.add(Or(truck_location == 0, truck_location == 1, truck_location == 2, truck_location == 3))  # 0=S, 1=A, 2=B, 3=C
-
-# Declare the time costs for each path
-time_SA = 15
-time_SC = 15
-time_AS = 15
-time_AC = 12
-time_AB = 17
-time_CS = 15
-time_CA = 12
-time_CB = 9
-time_BC = 13
-time_BA = 17
-
-# Declare booleans for each transition
-t_SA = Bool('t_SA')  # S to A
-t_SC = Bool('t_SC')  # S to C
-t_AS = Bool('t_AS')  # A to S
-t_AB = Bool('t_AB')  # A to B
-t_AC = Bool('t_AC')  # A to C
-t_BA = Bool('t_BA')  # B to A
-t_BC = Bool('t_BC')  # B to C
-t_CA = Bool('t_CA')  # C to A
-t_CS = Bool('t_CS')  # C to S
-t_CB = Bool('t_CB')  # C to B
-
-# Ensure transitions are exclusive at each location
-
-# When truck is at S (0), it can either go to A (1) or C (3)
-s.add(Implies(truck_location == 0, Or(t_SA, t_SC)))
-
-# When truck is at A (1), it can go to S (0), B (2), or C (3)
-s.add(Implies(truck_location == 1, Or(t_AS, t_AB, t_AC)))
-
-# When truck is at B (2), it can go to A (1) or C (3)
-s.add(Implies(truck_location == 2, Or(t_BA, t_BC)))
-
-# When truck is at C (3), it can go to A (1), B (2), or S (0)
-s.add(Implies(truck_location == 3, Or(t_CA, t_CB, t_CS)))
-
-# Transition logic for all locations
-# From S (0) to A (1)
-s.add(Implies(t_SA, And(
-    truck_location == 1,
-    capacity_A == max_capacity_A,
-    capacity_B == capacity_B - time_SA,
-    capacity_C == capacity_C - time_SA,
-    capacity_S == capacity_S + time_SA,
-    truck_capacity == truck_capacity - (max_capacity_A - capacity_A)
-)))
-
-# From S (0) to C (3)
-s.add(Implies(t_SC, And(
-    truck_location == 3,
-    capacity_A == capacity_A - time_SC,
-    capacity_B == capacity_B - time_SC,
-    capacity_C == max_capacity_C,
-    capacity_S == capacity_S + time_SC,
-    truck_capacity == truck_capacity - (max_capacity_C - capacity_C)
-)))
-
-# From A (1) to S (0)
-s.add(Implies(t_AS, And(
-    truck_location == 0,
-    capacity_A == capacity_A - time_AS,
-    capacity_B == capacity_B - time_AS,
-    capacity_C == capacity_C - time_AS,
-    capacity_S == capacity_S + time_AS,
-    truck_capacity == truck_capacity + (max_truck_capacity - truck_capacity),
-    capacity_S == capacity_S - (max_truck_capacity - truck_capacity)
-)))
-
-# From A (1) to B (2)
-s.add(Implies(t_AB, And(
-    truck_location == 2,
-    capacity_A == capacity_A - time_AB,
-    capacity_B == max_capacity_B,
-    capacity_C == capacity_C - time_AB,
-    capacity_S == capacity_S + time_AB,
-    truck_capacity == truck_capacity - (max_capacity_B - capacity_B)
-)))
-
-# From A (1) to C (3)
-s.add(Implies(t_AC, And(
-    truck_location == 3,
-    capacity_A == capacity_A - time_AC,
-    capacity_B == capacity_B - time_AC,
-    capacity_C == max_capacity_C,
-    capacity_S == capacity_S + time_AC,
-    truck_capacity == truck_capacity - (max_capacity_C - capacity_C)
-)))
-
-# From B (2) to A (1)
-s.add(Implies(t_BA, And(
-    truck_location == 1,
-    capacity_A == max_capacity_A,
-    capacity_B == capacity_B - time_BA,
-    capacity_C == capacity_C - time_BA,
-    capacity_S == capacity_S + time_BA,
-    truck_capacity == truck_capacity - (max_capacity_A - capacity_A)
-)))
-
-# From B (2) to C (3)
-s.add(Implies(t_BC, And(
-    truck_location == 3,
-    capacity_A == capacity_A - time_BC,
-    capacity_B == capacity_B - time_BC,
-    capacity_C == max_capacity_C,
-    capacity_S == capacity_S + time_BC,
-    truck_capacity == truck_capacity - (max_capacity_C - capacity_C)
-)))
-
-# From C (3) to A (1)
-s.add(Implies(t_CA, And(
-    truck_location == 1,
-    capacity_A == max_capacity_A,
-    capacity_B == capacity_B - time_CA,
-    capacity_C == capacity_C - time_CA,
-    capacity_S == capacity_S + time_CA,
-    truck_capacity == truck_capacity - (max_capacity_A - capacity_A)
-)))
-
-# From C (3) to B (2)
-s.add(Implies(t_CB, And(
-    truck_location == 2,
-    capacity_A == capacity_A - time_CB,
-    capacity_B == max_capacity_B,
-    capacity_C == capacity_C - time_CB,
-    capacity_S == capacity_S + time_CB,
-    truck_capacity == truck_capacity - (max_capacity_B - capacity_B)
-)))
-
-# From C (3) to S (0)
-s.add(Implies(t_CS, And(
-    truck_location == 0,
-    capacity_A == capacity_A - time_CS,
-    capacity_B == capacity_B - time_CS,
-    capacity_C == capacity_C - time_CS,
-    capacity_S == capacity_S + time_CS,
-    truck_capacity == truck_capacity + (max_truck_capacity - truck_capacity),
-    capacity_S == capacity_S - (max_truck_capacity - truck_capacity)
-)))
-
-# Condition to check if all villages A, B, and C run out of supplies
-s.add(And(capacity_A <= 0, capacity_B <= 0, capacity_C <= 0))
-
-# Check the satisfiability of the model
-if s.check() == sat:
-    model = s.model()
-    print("Solution found:")
-    print(model)
-else:
-    print("No solution found")
-
-'''
