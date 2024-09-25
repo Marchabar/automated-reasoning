@@ -5,10 +5,14 @@ THINGS WE ASSUME:
 1) the truck can either leave food supply to a village or not
 2) if the truck leave food supply it can either leave only one package or its full load
 3) When the truck goes in S it fully loads
+
+57-> sat
+58 ->sat
+59-> unsat
 '''
 
 # Number of steps
-N = 5
+N = 58
 
 # Truck location variables for each step
 T_a = [Bool(f'T_a_{i}') for i in range(N)]  # Truck at village A at step i
@@ -146,6 +150,9 @@ for i in range(N-1):  # Loop over each step
             capacity_B[i+1] == capacity_B[i] - time_CA, 
             Or(And(capacity_A[i+1] == capacity_A[i] - time_CA + k_CA[i], truck_capacity[i+1] == truck_capacity[i] - k_CA[i])), 
             capacity_C[i+1] == capacity_C[i] - time_CA))))
+    
+
+    s.add(And(capacity_A[i+1] != 0, capacity_B[i+1] != 0, capacity_C[i+1] != 0))
 
 
 
