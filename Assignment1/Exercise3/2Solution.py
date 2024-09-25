@@ -5,10 +5,6 @@ THINGS WE ASSUME:
 1) the truck can either leave food supply to a village or not
 2) if the truck leave food supply it can either leave only one package or its full load
 3) When the truck goes in S it fully loads
-
-57-> sat
-58 ->sat
-59-> unsat
 '''
 
 # Number of steps
@@ -35,13 +31,13 @@ s = Solver()
 max_capacity_A = 90
 max_capacity_B = 120
 max_capacity_C = 90
-max_truck_capacity = 130
+max_truck_capacity = 150
 
 # Initial conditions at step 0
 s.add(capacity_A[0] == 60)
 s.add(capacity_B[0] == 60)
 s.add(capacity_C[0] == 60)
-s.add(truck_capacity[0] == 130)
+s.add(truck_capacity[0] == 150)
 
 # Declare the time costs for each path
 time_SA = 15
@@ -86,7 +82,7 @@ for i in range(N):
     s.add(capacity_A[i] <= 90)
     s.add(capacity_B[i] <= 120)
     s.add(capacity_C[i] <= 90)
-    s.add(truck_capacity[i] <= 130)
+    s.add(truck_capacity[i] <= 150)
 
 # Constraints for each step
 for i in range(N-1):  # Loop over each step
