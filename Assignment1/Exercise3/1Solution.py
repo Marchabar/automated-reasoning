@@ -5,11 +5,7 @@ THINGS WE ASSUME:
 1) the truck can either leave food supply to a village or not
 2) if the truck leave food supply it can either leave only one package or its full load
 
-57-> sat
-58 ->sat
-59-> unsat
-
-Hence:
+RESULTS:
 from 0 to 58 it is Satisfiable
 from 0 to 59 it is Unsatisfiable
 '''

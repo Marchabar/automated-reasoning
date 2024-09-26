@@ -1,11 +1,5 @@
 from z3 import *
 
-'''
-THINGS WE ASSUME:
-1) the truck can either leave food supply to a village or not
-2) if the truck leave food supply it can either leave only one package or its full load
-'''
-
 # Number of steps
 N = 200
 

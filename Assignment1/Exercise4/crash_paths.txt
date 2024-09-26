@@ -1,0 +1,114 @@
+Program safe for n = 1
+Program safe for n = 2
+Program crashes for n = 3
+--------------------------------------------------------
+a = 303
+b = 213
+Path to crash state:
+Initial values: a = 1, b = 1
+Step 1: a = 2, b = -1
+branch2
+Step 2: a = 4, b = -5
+branch2
+Step 3: a = 7, b = -12
+branch2
+Step 4: a = 11, b = -23
+branch2
+Step 5: a = 16, b = -39
+branch2
+Step 6: a = -62, b = -36
+branch1
+Step 7: a = -134, b = -33
+branch1
+Step 8: a = -126, b = 93
+branch2
+Step 9: a = -117, b = 210
+branch2
+Step 10: a = 303, b = 213
+branch1
+--------------------------------------------------------
+Program safe for n = 4
+Program crashes for n = 5
+--------------------------------------------------------
+a = -241
+b = 215
+Path to crash state:
+Initial values: a = 1, b = 1
+Step 1: a = 3, b = 4
+branch1
+Step 2: a = 5, b = -1
+branch2
+Step 3: a = 8, b = -9
+branch2
+Step 4: a = 12, b = -21
+branch2
+Step 5: a = 17, b = -38
+branch2
+Step 6: a = -59, b = -35
+branch1
+Step 7: a = -129, b = -32
+branch1
+Step 8: a = -193, b = -29
+branch1
+Step 9: a = -251, b = -26
+branch1
+Step 10: a = -241, b = 215
+branch2
+--------------------------------------------------------
+Program crashes for n = 6
+--------------------------------------------------------
+a = 169
+b = 216
+Path to crash state:
+Initial values: a = 1, b = 1
+Step 1: a = 3, b = 4
+branch1
+Step 2: a = 11, b = 7
+branch1
+Step 3: a = 25, b = 10
+branch1
+Step 4: a = 29, b = -19
+branch2
+Step 5: a = 34, b = -53
+branch2
+Step 6: a = -72, b = -50
+branch1
+Step 7: a = -172, b = -47
+branch1
+Step 8: a = -266, b = -44
+branch1
+Step 9: a = -257, b = 213
+branch2
+Step 10: a = 169, b = 216
+branch1
+--------------------------------------------------------
+Program crashes for n = 7
+--------------------------------------------------------
+a = 127
+b = 217
+Path to crash state:
+Initial values: a = 1, b = 1
+Step 1: a = 3, b = 4
+branch1
+Step 2: a = 11, b = 7
+branch1
+Step 3: a = 25, b = 10
+branch1
+Step 4: a = 45, b = 13
+branch1
+Step 5: a = 50, b = -37
+branch2
+Step 6: a = 56, b = -93
+branch2
+Step 7: a = -130, b = -90
+branch1
+Step 8: a = -310, b = -87
+branch1
+Step 9: a = -301, b = 214
+branch2
+Step 10: a = 127, b = 217
+branch1
+--------------------------------------------------------
+Program safe for n = 8
+Program safe for n = 9
+Program safe for n = 10
