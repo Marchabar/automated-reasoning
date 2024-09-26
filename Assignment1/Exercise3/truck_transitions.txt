@@ -1,0 +1,700 @@
+Satisfiable:
+Step 0:
+Truck is at village S
+Capacity A: 60
+Capacity B: 60
+Capacity C: 60
+Truck capacity: 150
+
+Step 1:
+Truck is at village A
+Capacity A: 46
+Capacity B: 45
+Capacity C: 45
+Truck capacity: 149
+
+Step 2:
+Truck is at village B
+Capacity A: 29
+Capacity B: 120
+Capacity C: 28
+Truck capacity: 57
+
+Step 3:
+Truck is at village C
+Capacity A: 16
+Capacity B: 107
+Capacity C: 72
+Truck capacity: 0
+
+Step 4:
+Truck is at village S
+Capacity A: 1
+Capacity B: 92
+Capacity C: 57
+Truck capacity: 104
+
+Step 5:
+Truck is at village A
+Capacity A: 90
+Capacity B: 77
+Capacity C: 42
+Truck capacity: 0
+
+Step 6:
+Truck is at village S
+Capacity A: 75
+Capacity B: 62
+Capacity C: 27
+Truck capacity: 150
+
+Step 7:
+Truck is at village C
+Capacity A: 60
+Capacity B: 47
+Capacity C: 80
+Truck capacity: 82
+
+Step 8:
+Truck is at village B
+Capacity A: 51
+Capacity B: 120
+Capacity C: 71
+Truck capacity: 0
+
+Step 9:
+Truck is at village C
+Capacity A: 38
+Capacity B: 107
+Capacity C: 58
+Truck capacity: 0
+
+Step 10:
+Truck is at village S
+Capacity A: 23
+Capacity B: 92
+Capacity C: 43
+Truck capacity: 150
+
+Step 11:
+Truck is at village A
+Capacity A: 80
+Capacity B: 77
+Capacity C: 28
+Truck capacity: 78
+
+Step 12:
+Truck is at village C
+Capacity A: 68
+Capacity B: 65
+Capacity C: 90
+Truck capacity: 4
+
+Step 13:
+Truck is at village S
+Capacity A: 53
+Capacity B: 50
+Capacity C: 75
+Truck capacity: 150
+
+Step 14:
+Truck is at village C
+Capacity A: 38
+Capacity B: 35
+Capacity C: 64
+Truck capacity: 146
+
+Step 15:
+Truck is at village B
+Capacity A: 29
+Capacity B: 120
+Capacity C: 55
+Truck capacity: 52
+
+Step 16:
+Truck is at village C
+Capacity A: 16
+Capacity B: 107
+Capacity C: 90
+Truck capacity: 4
+
+Step 17:
+Truck is at village S
+Capacity A: 1
+Capacity B: 92
+Capacity C: 75
+Truck capacity: 82
+
+Step 18:
+Truck is at village A
+Capacity A: 68
+Capacity B: 77
+Capacity C: 60
+Truck capacity: 0
+
+Step 19:
+Truck is at village S
+Capacity A: 53
+Capacity B: 62
+Capacity C: 45
+Truck capacity: 150
+
+Step 20:
+Truck is at village C
+Capacity A: 38
+Capacity B: 47
+Capacity C: 31
+Truck capacity: 149
+
+Step 21:
+Truck is at village B
+Capacity A: 29
+Capacity B: 106
+Capacity C: 22
+Truck capacity: 81
+
+Step 22:
+Truck is at village C
+Capacity A: 16
+Capacity B: 93
+Capacity C: 90
+Truck capacity: 0
+
+Step 23:
+Truck is at village S
+Capacity A: 1
+Capacity B: 78
+Capacity C: 75
+Truck capacity: 150
+
+Step 24:
+Truck is at village A
+Capacity A: 90
+Capacity B: 63
+Capacity C: 60
+Truck capacity: 46
+
+Step 25:
+Truck is at village S
+Capacity A: 75
+Capacity B: 48
+Capacity C: 45
+Truck capacity: 150
+
+Step 26:
+Truck is at village A
+Capacity A: 60
+Capacity B: 33
+Capacity C: 30
+Truck capacity: 150
+
+Step 27:
+Truck is at village B
+Capacity A: 43
+Capacity B: 86
+Capacity C: 13
+Truck capacity: 80
+
+Step 28:
+Truck is at village C
+Capacity A: 30
+Capacity B: 73
+Capacity C: 28
+Truck capacity: 52
+
+Step 29:
+Truck is at village A
+Capacity A: 70
+Capacity B: 61
+Capacity C: 16
+Truck capacity: 0
+
+Step 30:
+Truck is at village S
+Capacity A: 55
+Capacity B: 46
+Capacity C: 1
+Truck capacity: 104
+
+Step 31:
+Truck is at village C
+Capacity A: 40
+Capacity B: 31
+Capacity C: 90
+Truck capacity: 0
+
+Step 32:
+Truck is at village S
+Capacity A: 25
+Capacity B: 16
+Capacity C: 75
+Truck capacity: 150
+
+Step 33:
+Truck is at village C
+Capacity A: 10
+Capacity B: 1
+Capacity C: 61
+Truck capacity: 149
+
+Step 34:
+Truck is at village B
+Capacity A: 1
+Capacity B: 109
+Capacity C: 52
+Truck capacity: 32
+
+Step 35:
+Truck is at village A
+Capacity A: 16
+Capacity B: 92
+Capacity C: 35
+Truck capacity: 0
+
+Step 36:
+Truck is at village S
+Capacity A: 1
+Capacity B: 77
+Capacity C: 20
+Truck capacity: 150
+
+Step 37:
+Truck is at village A
+Capacity A: 49
+Capacity B: 62
+Capacity C: 5
+Truck capacity: 87
+
+Step 38:
+Truck is at village C
+Capacity A: 37
+Capacity B: 50
+Capacity C: 80
+Truck capacity: 0
+
+Step 39:
+Truck is at village S
+Capacity A: 22
+Capacity B: 35
+Capacity C: 65
+Truck capacity: 150
+
+Step 40:
+Truck is at village A
+Capacity A: 18
+Capacity B: 20
+Capacity C: 50
+Truck capacity: 139
+
+Step 41:
+Truck is at village B
+Capacity A: 1
+Capacity B: 90
+Capacity C: 33
+Truck capacity: 52
+
+Step 42:
+Truck is at village A
+Capacity A: 36
+Capacity B: 73
+Capacity C: 16
+Truck capacity: 0
+
+Step 43:
+Truck is at village S
+Capacity A: 21
+Capacity B: 58
+Capacity C: 1
+Truck capacity: 150
+
+Step 44:
+Truck is at village C
+Capacity A: 6
+Capacity B: 43
+Capacity C: 62
+Truck capacity: 74
+
+Step 45:
+Truck is at village A
+Capacity A: 68
+Capacity B: 31
+Capacity C: 50
+Truck capacity: 0
+
+Step 46:
+Truck is at village S
+Capacity A: 53
+Capacity B: 16
+Capacity C: 35
+Truck capacity: 150
+
+Step 47:
+Truck is at village C
+Capacity A: 38
+Capacity B: 1
+Capacity C: 27
+Truck capacity: 143
+
+Step 48:
+Truck is at village B
+Capacity A: 29
+Capacity B: 98
+Capacity C: 18
+Truck capacity: 37
+
+Step 49:
+Truck is at village C
+Capacity A: 16
+Capacity B: 85
+Capacity C: 42
+Truck capacity: 0
+
+Step 50:
+Truck is at village S
+Capacity A: 1
+Capacity B: 70
+Capacity C: 27
+Truck capacity: 150
+
+Step 51:
+Truck is at village A
+Capacity A: 88
+Capacity B: 55
+Capacity C: 12
+Truck capacity: 48
+
+Step 52:
+Truck is at village C
+Capacity A: 76
+Capacity B: 43
+Capacity C: 42
+Truck capacity: 6
+
+Step 53:
+Truck is at village A
+Capacity A: 68
+Capacity B: 31
+Capacity C: 30
+Truck capacity: 2
+
+Step 54:
+Truck is at village S
+Capacity A: 53
+Capacity B: 16
+Capacity C: 15
+Truck capacity: 150
+
+Step 55:
+Truck is at village C
+Capacity A: 38
+Capacity B: 1
+Capacity C: 10
+Truck capacity: 140
+
+Step 56:
+Truck is at village B
+Capacity A: 29
+Capacity B: 74
+Capacity C: 1
+Truck capacity: 58
+
+Step 57:
+Truck is at village C
+Capacity A: 16
+Capacity B: 61
+Capacity C: 46
+Truck capacity: 0
+
+Step 58:
+Truck is at village S
+Capacity A: 1
+Capacity B: 46
+Capacity C: 31
+Truck capacity: 104
+
+Step 59:
+Truck is at village A
+Capacity A: 90
+Capacity B: 31
+Capacity C: 16
+Truck capacity: 0
+
+Step 60:
+Truck is at village S
+Capacity A: 75
+Capacity B: 16
+Capacity C: 1
+Truck capacity: 150
+
+Step 61:
+Truck is at village C
+Capacity A: 60
+Capacity B: 1
+Capacity C: 10
+Truck capacity: 126
+
+Step 62:
+Truck is at village B
+Capacity A: 51
+Capacity B: 86
+Capacity C: 1
+Truck capacity: 32
+
+Step 63:
+Truck is at village C
+Capacity A: 38
+Capacity B: 73
+Capacity C: 19
+Truck capacity: 1
+
+Step 64:
+Truck is at village S
+Capacity A: 23
+Capacity B: 58
+Capacity C: 4
+Truck capacity: 150
+
+Step 65:
+Truck is at village C
+Capacity A: 8
+Capacity B: 43
+Capacity C: 52
+Truck capacity: 87
+
+Step 66:
+Truck is at village A
+Capacity A: 83
+Capacity B: 31
+Capacity C: 40
+Truck capacity: 0
+
+Step 67:
+Truck is at village S
+Capacity A: 68
+Capacity B: 16
+Capacity C: 25
+Truck capacity: 150
+
+Step 68:
+Truck is at village C
+Capacity A: 53
+Capacity B: 1
+Capacity C: 10
+Truck capacity: 150
+
+Step 69:
+Truck is at village B
+Capacity A: 44
+Capacity B: 86
+Capacity C: 1
+Truck capacity: 56
+
+Step 70:
+Truck is at village C
+Capacity A: 31
+Capacity B: 73
+Capacity C: 44
+Truck capacity: 0
+
+Step 71:
+Truck is at village S
+Capacity A: 16
+Capacity B: 58
+Capacity C: 29
+Truck capacity: 150
+
+Step 72:
+Truck is at village A
+Capacity A: 63
+Capacity B: 43
+Capacity C: 14
+Truck capacity: 88
+
+Step 73:
+Truck is at village C
+Capacity A: 51
+Capacity B: 31
+Capacity C: 90
+Truck capacity: 0
+
+Step 74:
+Truck is at village S
+Capacity A: 36
+Capacity B: 16
+Capacity C: 75
+Truck capacity: 150
+
+Step 75:
+Truck is at village A
+Capacity A: 55
+Capacity B: 1
+Capacity C: 60
+Truck capacity: 116
+
+Step 76:
+Truck is at village B
+Capacity A: 38
+Capacity B: 98
+Capacity C: 43
+Truck capacity: 2
+
+Step 77:
+Truck is at village C
+Capacity A: 25
+Capacity B: 85
+Capacity C: 32
+Truck capacity: 0
+
+Step 78:
+Truck is at village S
+Capacity A: 10
+Capacity B: 70
+Capacity C: 17
+Truck capacity: 150
+
+Step 79:
+Truck is at village A
+Capacity A: 13
+Capacity B: 55
+Capacity C: 2
+Truck capacity: 132
+
+Step 80:
+Truck is at village C
+Capacity A: 1
+Capacity B: 43
+Capacity C: 28
+Truck capacity: 94
+
+Step 81:
+Truck is at village A
+Capacity A: 83
+Capacity B: 31
+Capacity C: 16
+Truck capacity: 0
+
+Step 82:
+Truck is at village S
+Capacity A: 68
+Capacity B: 16
+Capacity C: 1
+Truck capacity: 150
+
+Step 83:
+Truck is at village C
+Capacity A: 53
+Capacity B: 1
+Capacity C: 40
+Truck capacity: 96
+
+Step 84:
+Truck is at village B
+Capacity A: 44
+Capacity B: 86
+Capacity C: 31
+Truck capacity: 2
+
+Step 85:
+Truck is at village C
+Capacity A: 31
+Capacity B: 73
+Capacity C: 20
+Truck capacity: 0
+
+Step 86:
+Truck is at village S
+Capacity A: 16
+Capacity B: 58
+Capacity C: 5
+Truck capacity: 150
+
+Step 87:
+Truck is at village C
+Capacity A: 1
+Capacity B: 43
+Capacity C: 47
+Truck capacity: 93
+
+Step 88:
+Truck is at village A
+Capacity A: 82
+Capacity B: 31
+Capacity C: 35
+Truck capacity: 0
+
+Step 89:
+Truck is at village S
+Capacity A: 67
+Capacity B: 16
+Capacity C: 20
+Truck capacity: 150
+
+Step 90:
+Truck is at village C
+Capacity A: 52
+Capacity B: 1
+Capacity C: 10
+Truck capacity: 145
+
+Step 91:
+Truck is at village B
+Capacity A: 43
+Capacity B: 84
+Capacity C: 1
+Truck capacity: 53
+
+Step 92:
+Truck is at village C
+Capacity A: 30
+Capacity B: 71
+Capacity C: 28
+Truck capacity: 13
+
+Step 93:
+Truck is at village A
+Capacity A: 31
+Capacity B: 59
+Capacity C: 16
+Truck capacity: 0
+
+Step 94:
+Truck is at village S
+Capacity A: 16
+Capacity B: 44
+Capacity C: 1
+Truck capacity: 122
+
+Step 95:
+Truck is at village C
+Capacity A: 1
+Capacity B: 29
+Capacity C: 40
+Truck capacity: 68
+
+Step 96:
+Truck is at village A
+Capacity A: 34
+Capacity B: 17
+Capacity C: 28
+Truck capacity: 23
+
+Step 97:
+Truck is at village C
+Capacity A: 22
+Capacity B: 5
+Capacity C: 18
+Truck capacity: 21
+
+Step 98:
+Truck is at village B
+Capacity A: 13
+Capacity B: 13
+Capacity C: 9
+Truck capacity: 4
+
+Step 99:
+Truck is at village A
+Capacity A: 0
+Capacity B: 0
+Capacity C: 0
+Truck capacity: 0

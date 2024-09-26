@@ -4,11 +4,10 @@ from z3 import *
 THINGS WE ASSUME:
 1) the truck can either leave food supply to a village or not
 2) if the truck leave food supply it can either leave only one package or its full load
-3) When the truck goes in S it fully loads
 '''
 
 # Number of steps
-N = 59
+N = 200
 
 # Truck location variables for each step
 T_a = [Bool(f'T_a_{i}') for i in range(N)]  # Truck at village A at step i
@@ -148,7 +147,7 @@ for i in range(N-1):  # Loop over each step
             capacity_C[i+1] == capacity_C[i] - time_CA))))
     
 
-    s.add(And(capacity_A[i+1] != 0, capacity_B[i+1] != 0, capacity_C[i+1] != 0))
+    s.add(And(capacity_A[i] != 0, capacity_B[i] != 0, capacity_C[i] != 0))
 
 
 
@@ -159,7 +158,7 @@ if s.check() == sat:
     model = s.model()
     
     # Organize and print the results by steps
-    for i in range(N-1):
+    for i in range(N):
         print(f"Step {i}:")
         # Check where the truck is at step i
         if model.evaluate(T_a[i]):
